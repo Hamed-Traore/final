@@ -153,14 +153,15 @@ function creat_event($conn,$event_type,$title,$colours,$start_date,$end_date,$ca
     // now execute the statement
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+
     
 
 }
 
 // add to the location table
-function AddLocation($conn,$location_name,$contact,$opening_time,$details,$user_id){
+function AddLocation($conn,$location_name,$contact,$opening_time,$details,$event_id){
     // query to insert the data into the DB
-    $sql="INSERT INTO `location`( `location_name`, `contact`, `opening_time`, `details`) VALUES (?,?,?,?)";
+    $sql="INSERT INTO `location`( `location_name`, `contact`, `opening_time`, `details`,`event_id`) VALUES (?,?,?,?,?)";
     // prepared statement to check if there is a match in the DB(to prevent users form injecting bad code into the DB)
     $stmt= mysqli_stmt_init($conn);//initialized statement
     if (!mysqli_stmt_prepare($stmt,$sql)) {
@@ -173,7 +174,7 @@ function AddLocation($conn,$location_name,$contact,$opening_time,$details,$user_
     //$hashedPassword= password_hash($password, PASSWORD_DEFAULT);
 
     //if it does not fail, then insert the data
-    mysqli_stmt_bind_param($stmt,"siss",$location_name,$contact,$opening_time,$details);
+    mysqli_stmt_bind_param($stmt,"sissi",$location_name,$contact,$opening_time,$details,$event_id);
     // now execute the statement
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
@@ -181,9 +182,9 @@ function AddLocation($conn,$location_name,$contact,$opening_time,$details,$user_
 }
 
 //add to payement table
-function Addpayment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$user_id){
+function Addpayment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$event_id){
     // query to insert the data into the DB
-    $sql="INSERT INTO `payment`( `paymentMethod`, `Name_on_card`, `card_num`, `amount_paid`, `expire_date`, `CVV`) VALUES (?,?,?,?,?,?)";
+    $sql="INSERT INTO `payment`( `paymentMethod`, `Name_on_card`, `card_num`, `amount_paid`, `expire_date`, `CVV`,`event_id`) VALUES (?,?,?,?,?,?,?)";
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);// used to identify the errors
     // prepared statement to check if there is a match in the DB(to prevent users form injecting bad code into the DB)
@@ -199,7 +200,7 @@ function Addpayment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$e
     //$hashedPassword= password_hash($password, PASSWORD_DEFAULT);
 
     //if it does not fail, then insert the data
-    mysqli_stmt_bind_param($stmt,"ssiisi",$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV);
+    mysqli_stmt_bind_param($stmt,"ssiisii",$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$event_id);
     // now execute the statement
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);

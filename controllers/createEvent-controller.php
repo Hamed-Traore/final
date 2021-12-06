@@ -77,8 +77,12 @@ if (isset($_POST['create']))
     	// if there is no error in the input, store the data in the DB
     	$user_id=$_SESSION["user_id"];
     	creat_event($conn,$event_type,$title,$colours,$start_date,$end_date,$cake_size,$budget,$event_details,$user_id);
-        AddLocation($conn,$location_name,$contact,$opening_time,$details,$user_id);
-        Addpayment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$user_id);
+
+        $event_id = mysqli_insert_id($conn);
+        
+        AddLocation($conn,$location_name,$contact,$opening_time,$details,$event_id);
+
+        Addpayment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$event_id);
         header("location: ../View/home.php?EventCreatedSuccessfully");
     }
     // return the errors on the form page
