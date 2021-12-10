@@ -25,7 +25,7 @@
             Guaranteeing personalized solutions and flawless execution, our venues provide the perfect
             location for your special day.
           </p>
-          <a href="#" class="btn btn-primary">View Events</a>
+          
           
         </div>
       </div>
@@ -40,7 +40,7 @@
             lasts well into the wee hours, our Urban Events team is here to make sure all your birthday
             party wishes come true so you can kick back, drink up and enjoy your special day!
           </p>
-          <a href="#" class="btn btn-primary">View Events</a>
+          
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
             The Urban Purveyor Group venues provide you with choice and quality in premium locations 
             for all your event needs.
           </p>
-          <a href="#" class="btn btn-primary">View Events</a>
+          
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
             spaces can cater to your every need for meetings and conferences large or small, and our
             dedicated event team can assist with all aspects of your event planning.
           </p>
-          <a href="#" class="btn btn-primary">View Events</a>
+          
         </div>
       </div>
     </div>

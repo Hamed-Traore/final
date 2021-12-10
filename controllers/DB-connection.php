@@ -1,7 +1,7 @@
 <?php
 // database credential
 define('username','root');
-define('password','');
+define('password','HamedTraore2@@1');
 define('database','eventsystemdb');
 define('servername','localhost');
 

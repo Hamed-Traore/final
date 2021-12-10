@@ -1,13 +1,12 @@
 <?php
 
 require_once '../controllers/DB-connection.php';
-if (isset($_POST["submit"])) {
-    $id=$_POST['event_id'];
+
+    $id=$_GET['event_id'];
     $sql = "DELETE FROM `events` WHERE event_id='$id'";
     mysqli_query($conn, $sql);
     mysqli_close($conn);
-    
-}
+    header ("location: home.php");
 
 
 

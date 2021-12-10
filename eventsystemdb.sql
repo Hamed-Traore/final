@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2021 at 04:10 AM
+-- Generation Time: Dec 10, 2021 at 06:20 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -36,7 +36,7 @@ CREATE TABLE `events` (
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `Cake_size` varchar(20) DEFAULT NULL,
-  `budget` decimal(19,4) DEFAULT NULL,
+  `budget` decimal(19,2) DEFAULT NULL,
   `event_details` varchar(300) NOT NULL,
   `users_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -46,16 +46,12 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`event_id`, `creation_date`, `event_type`, `title`, `colours`, `start_date`, `end_date`, `Cake_size`, `budget`, `event_details`, `users_id`) VALUES
-(6, '2021-11-27 16:00:39', 'Corporate', 'AAAAAAAAAA', 'AAAAAAA', '2021-11-27', '2021-12-12', 'Small', '1122233141.0000', 'AZZ', 2),
-(7, '2021-11-27 16:03:07', 'Others', 'yooooooooooo', 'red-blue', '2021-11-27', '2021-12-05', 'Large', '10000.0000', 'cooolllllllllllllllllllll', 2),
-(8, '2021-11-30 23:01:19', 'Private', 'any', 'red', '2021-11-30', '2021-12-09', 'Large', '123455454.0000', 'details', 7),
-(10, '2021-12-04 19:15:40', 'Private', 'test        ', 'red', '2021-12-04', '2021-12-25', 'null', '11000.0000', 'trying', 8),
-(11, '2021-12-06 02:01:43', 'Private', 'update', 'black', '2021-12-06', '2021-12-10', 'Large', '1222333.0000', '5555', 8),
-(12, '2021-12-06 02:04:13', 'Private', 'update', 'black', '2021-12-06', '2021-12-10', 'Large', '1222333.0000', '5555', 8),
-(13, '2021-12-06 02:04:59', 'Private', 'update', 'black', '2021-12-06', '2021-12-10', 'Large', '1222333.0000', '5555', 8),
-(14, '2021-12-06 02:07:44', 'Private', 'update', 'black', '2021-12-06', '2021-12-10', 'Large', '1222333.0000', '5555', 8),
-(15, '2021-12-06 02:12:38', 'Private', 'update', 'black', '2021-12-06', '2021-12-10', 'Large', '1222333.0000', '5555', 8),
-(16, '2021-12-06 02:14:24', 'Private', 'update', 'black', '2021-12-06', '2021-12-10', 'Large', '1222333.0000', '5555', 8);
+(6, '2021-11-27 16:00:39', 'Corporate', 'AAAAAAAAAA', 'AAAAAAA', '2021-11-27', '2021-12-12', 'Small', '1122233141.00', 'AZZ', 2),
+(7, '2021-11-27 16:03:07', 'Others', 'yooooooooooo', 'red-blue', '2021-11-27', '2021-12-05', 'Large', '10000.00', 'cooolllllllllllllllllllll', 2),
+(8, '2021-11-30 23:01:19', 'Private', 'any', 'red', '2021-11-30', '2021-12-09', 'Large', '123455454.00', 'details', 7),
+(26, '2021-12-09 16:10:02', NULL, 'SECOND    ', 'red', '2021-12-10', '2021-12-18', 'null', '33333.00', 'AAAAAAAAAAAA', 8),
+(27, '2021-12-09 16:36:03', 'Corporate', 'fdgfghd', 'fg', '2021-12-09', '2021-12-19', NULL, '1223.00', 'GFDG', 8),
+(28, '2021-12-10 15:29:18', 'Corporate', 'Hamed\'s Birthday', 'Red-white', '2022-02-27', '2022-02-27', NULL, '20000.00', 'I want a every nice party full of colours', 9);
 
 -- --------------------------------------------------------
 
@@ -69,23 +65,17 @@ CREATE TABLE `location` (
   `contact` varchar(20) DEFAULT NULL,
   `opening_time` time DEFAULT NULL,
   `details` varchar(300) DEFAULT NULL,
-  `users_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `logistics`
---
-
-CREATE TABLE `logistics` (
-  `playlist` varchar(15) DEFAULT NULL,
-  `drinks` enum('Yes','No') DEFAULT NULL,
-  `menu_type` varchar(15) DEFAULT NULL,
-  `chairs_number` int(5) DEFAULT NULL,
-  `tables_number` int(5) DEFAULT NULL,
   `event_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`location_id`, `location_name`, `contact`, `opening_time`, `details`, `event_id`) VALUES
+(14, 'BASSAM', '1122233345', '16:07:00', '', 26),
+(15, 'GHD', '1222', '20:35:00', 'GHDF', 27),
+(16, 'Accra', '2400123412', '20:30:00', 'it\' is a \"soirée\" ', 28);
 
 -- --------------------------------------------------------
 
@@ -102,15 +92,19 @@ CREATE TABLE `payment` (
   `amount_paid` decimal(10,2) DEFAULT NULL,
   `expire_date` date DEFAULT NULL,
   `CVV` int(3) DEFAULT NULL,
-  `users_id` int(10) DEFAULT NULL
+  `event_id` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `payment`
 --
 
-INSERT INTO `payment` (`payment_id`, `payment_date`, `paymentMethod`, `Name_on_card`, `card_num`, `amount_paid`, `expire_date`, `CVV`, `users_id`) VALUES
-(1, NULL, 'Credit card', 'yoris', 123344, '1222333.00', '2021-12-01', 777, NULL);
+INSERT INTO `payment` (`payment_id`, `payment_date`, `paymentMethod`, `Name_on_card`, `card_num`, `amount_paid`, `expire_date`, `CVV`, `event_id`) VALUES
+(1, NULL, 'Credit card', 'yoris', 123344, '1222333.00', '2021-12-01', 777, NULL),
+(2, NULL, 'Debit card', 'ARAEZR', 11122, '1223.00', '2021-12-21', 122, NULL),
+(9, NULL, 'Credit card', 'EEEEEEEEEE', 2147483647, '33333.00', '2021-12-31', 155, 26),
+(10, NULL, 'Credit card', 'FDNG', 1122, '1223.00', '2021-12-10', 111, 27),
+(11, NULL, 'Debit card', 'Hamed Traore', 2147483647, '20000.00', '2023-11-17', 234, 28);
 
 -- --------------------------------------------------------
 
@@ -120,11 +114,13 @@ INSERT INTO `payment` (`payment_id`, `payment_date`, `paymentMethod`, `Name_on_c
 
 CREATE TABLE `staff` (
   `staff_id` int(10) NOT NULL,
+  `Full_name` varchar(100) DEFAULT NULL,
   `salary` decimal(10,2) DEFAULT NULL,
   `role` varchar(50) DEFAULT NULL,
   `phone_number` int(15) DEFAULT NULL,
   `city` varchar(30) DEFAULT NULL,
   `country` varchar(30) DEFAULT NULL,
+  `Status` enum('Completed','In progress','Not started','') NOT NULL,
   `event_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -132,8 +128,8 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_id`, `salary`, `role`, `phone_number`, `city`, `country`, `event_id`) VALUES
-(1, '12.00', 'AZZZ', 123, 'ZZE', 'AZE', 1);
+INSERT INTO `staff` (`staff_id`, `Full_name`, `salary`, `role`, `phone_number`, `city`, `country`, `Status`, `event_id`) VALUES
+(5, 'Antoine Griezman', '2000.00', 'chief of organizing comitie', 243146739, 'Acrra', 'Ghana', 'In progress', 28);
 
 -- --------------------------------------------------------
 
@@ -162,7 +158,8 @@ INSERT INTO `users` (`users_id`, `firstname`, `lastname`, `email`, `phone_number
 (5, 'hhhh', 'aaaa', 'hamd@gmail.com', 2147483647, '11befe1b03f596c805ed'),
 (6, 'HHHHH', 'HHHHH', 'hamed.traore@ashesi.edu', 2147483647, '11befe1b03f596c805ed03864def873d'),
 (7, 'hamed', 'ha^pa', 'hamedyoris@gmail.com', 2147483647, 'ab4f63f9ac65152575886860dde480a1'),
-(8, 'jemi', 'kouadio', 'jemi@gmail.com', 1234456565, '739b7af086e8c8873d6c8c7378f224c8');
+(8, 'jemi', 'kouadio', 'jemi@gmail.com', 1234456565, '739b7af086e8c8873d6c8c7378f224c8'),
+(9, 'yoyo', 'kaka', 'azerty@gmail.com', 1234567890, 'ab4f63f9ac65152575886860dde480a1');
 
 --
 -- Indexes for dumped tables
@@ -180,20 +177,14 @@ ALTER TABLE `events`
 --
 ALTER TABLE `location`
   ADD PRIMARY KEY (`location_id`),
-  ADD KEY `location_users` (`users_id`);
-
---
--- Indexes for table `logistics`
---
-ALTER TABLE `logistics`
-  ADD KEY `event_id` (`event_id`);
+  ADD KEY `users_id` (`event_id`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`),
-  ADD KEY `payment_users` (`users_id`);
+  ADD KEY `event_id` (`event_id`);
 
 --
 -- Indexes for table `staff`
@@ -216,31 +207,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `event_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `location_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `staff_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `users_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
@@ -256,19 +247,19 @@ ALTER TABLE `events`
 -- Constraints for table `location`
 --
 ALTER TABLE `location`
-  ADD CONSTRAINT `location_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `logistics`
---
-ALTER TABLE `logistics`
-  ADD CONSTRAINT `logistics_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `location_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `payment_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `staff`
+--
+ALTER TABLE `staff`
+  ADD CONSTRAINT `staff_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

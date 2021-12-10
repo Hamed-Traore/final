@@ -1,6 +1,15 @@
 <?php
 
-
+function emptyInputStaff($Full_name,$role,$salary,$phone_number,$Status){
+    $result;
+    if(empty($Full_name)||empty($role)||empty($salary)||empty($phone_number)||empty($Status)){
+        $result=true;
+    }
+    else {
+        $result=false;
+    }
+    return $result;
+}
 
 // user creation functions
 //check is there is an empty field

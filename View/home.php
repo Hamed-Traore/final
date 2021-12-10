@@ -87,7 +87,7 @@ require('../controllers/DB-connection.php');
 
 
                                 echo '<tr>';
-                                echo '<td>' . $row['event_id'] . '</td>';
+                                echo '<td>' . $row['creation_date'] . '</td>';
                                 echo '<td>' . $row['title'] . '</td>';
                                 echo '<td>' . $row['colours'] . '</td>';
                                 echo '<td>' . $row['start_date'] . '</td>';
@@ -102,7 +102,7 @@ require('../controllers/DB-connection.php');
                                     '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                 echo '<a href="delete.php?event_id=' .
                                     $row['event_id'] .
-                                    '" class="mr-3" title="Delete Record" data-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#delete" ><span class="fa fa-trash"></span></a>';
+                                    '" class="mr-3" title="Delete Record" data-toggle="tooltip" ><span class="fa fa-trash"></span></a>';
                                     
                                 echo '<a href="event_details.php?event_id=' .
                                     $row['event_id'] .
