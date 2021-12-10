@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "register_style.css">
+    <link rel="javascript" type="text/css" href="">
     
     <title>Registration form</title>
 </head>
@@ -26,21 +27,25 @@
                         <div class="form-control ">
                             <label for="firstname">First name:</label>
                             <input type="text" id="firstname" name="firstname">
+                            <small id="firstnameError"></small>
                         </div>
 
                         <div class="form-control ">
                             <label for="lastname">Last name:</label>
                             <input type="text"  id="lastname" name="lastname">
+                            <small id="lastnameError"></small>
                         </div>
 
                         <div class="form-control ">
                             <label for="email">Email address:</label>
                             <input type="email"  id="email" name="email">
+                            <small id="emailError"></small>
                         </div>
 
                         <div class="form-control">
                             <label for="phone_number">Mobile number:</label>
                             <input type="text" id="phone_number" name="phone_number">
+                            <small id="phone_numberError"></small>
                         </div>
 
                         <div class="form-control">
@@ -51,6 +56,7 @@
                         <div class="form-control">
                             <label for="conf_password">Confirm password:</label>
                             <input type="password" class="form-control" id="conf_password" name="conf_password">
+                            <small id="conf_passwordError"></small>
                         </div>
                         <button type="submit" class="btn btn-primary" name="submit">Create account</button><br>
 

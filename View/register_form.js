@@ -14,6 +14,7 @@ const conf_password = $('#conf_password');
 // error count
 let errors = 0;
 
+
 // show input error message
 const showError = (displayPlace, message) => {
     displayPlace.html(message);
@@ -61,12 +62,15 @@ const checkPasswordMatch = (password, conf_password) => {
 // })
 
 const validateForm = (e) =>{
-    //e.preventDefault();
+    
     $('small').html('');
     errors = 0;
 
     // TODO check for required inputs
     checkRequired([firstname,lastname, email,phone_number,password, conf_password]);
+    // check phone number length
+    checkInputLength(phone_number, 8, 10);
+
 
     // TODO check for password length
     checkInputLength(password, 5, 10);

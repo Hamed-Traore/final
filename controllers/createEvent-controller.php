@@ -17,7 +17,7 @@ if (isset($_POST['create']))
 	$start_date= $_POST['start_date'];
 	$end_date= $_POST['end_date'];
 	$budget= $_POST['budget'];
-	$cake_size= $_POST['cake_size'];
+	$cake_size= $_POST['Cake_size'];
 	$event_details= $_POST['event_details'];
 
     // Location
@@ -78,10 +78,13 @@ if (isset($_POST['create']))
     	$user_id=$_SESSION["user_id"];
     	creat_event($conn,$event_type,$title,$colours,$start_date,$end_date,$cake_size,$budget,$event_details,$user_id);
 
+        // mysqli_insert_id($conn) is used to get the last id auto generated in 
         $event_id = mysqli_insert_id($conn);
-        
+
+        // add data to the location table
         AddLocation($conn,$location_name,$contact,$opening_time,$details,$event_id);
 
+        // add data to the payment table
         Addpayment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$event_id);
         header("location: ../View/home.php?EventCreatedSuccessfully");
     }

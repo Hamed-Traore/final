@@ -121,6 +121,7 @@ function  loginUser($conn,$email,$password){
     if ($userExist["passwords"]===$hashedPassword) {
         session_start();
         $_SESSION["user_id"]=$userExist["users_id"];
+        $_SESSION['firstname']=$userExist['firstname'];
         header("location: ../View/home.php");
         
         exit();
@@ -227,5 +228,40 @@ function Update_event($conn,$event_type,$title,$colours,$start_date,$end_date,$c
     header("location: home.php");
 }
 
+// Update Payment      
+function Update_payment($conn,$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$event_id){
+    // query to insert the data into the DB
+    $sql = "UPDATE `payment` SET `paymentMethod`=?,`Name_on_card`=?,`card_num`=?,`amount_paid`=?,`expire_date`=?,`CVV`=? WHERE event_id=?" ;
+    // prepared statement to check if there is a match in the DB(to prevent users form injecting bad code into the DB)
+    $stmt= mysqli_stmt_init($conn);//initialized statement
+    if (!mysqli_stmt_prepare($stmt,$sql)) {
+        header("location: ../Update.php?error=Oops! couldn't Update event");
+        exit();
+    }
+    //if it does not fail, then insert the data
+    mysqli_stmt_bind_param($stmt,"ssiisii",$paymentMethod,$Name_on_card,$card_num,$amount_paid,$expire_date,$CVV,$event_id);
+    // now execute the statement
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: home.php");
+}
 
+
+// Update Location      
+function Update_Location($conn,$location_name,$contact,$opening_time,$details,$event_id){
+    // query to insert the data into the DB
+    $sql = "UPDATE `location` SET `location_name`=?,`contact`=?,`opening_time`=?,`details`=? WHERE event_id=?" ;
+    // prepared statement to check if there is a match in the DB(to prevent users form injecting bad code into the DB)
+    $stmt= mysqli_stmt_init($conn);//initialized statement
+    if (!mysqli_stmt_prepare($stmt,$sql)) {
+        header("location: ../Update.php?error=Oops! couldn't Update event");
+        exit();
+    }
+    //if it does not fail, then insert the data
+    mysqli_stmt_bind_param($stmt,"sissi",$location_name,$contact,$opening_time,$details,$event_id);
+    // now execute the statement
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: home.php");
+}
 ?>

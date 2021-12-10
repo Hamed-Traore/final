@@ -25,7 +25,9 @@ require('../controllers/DB-connection.php');
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="view.css">
+    
+
+
     <style>
         .wrapper{
             color:rgb(104,7,7)
@@ -38,21 +40,7 @@ require('../controllers/DB-connection.php');
             width: 70px;
         }
     </style>
-    <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-
-        // $.post(
-            //     'results_page.php',
-            //     {Search_term : document.getElementById('Search_term').value,
-            //     submit:'yes'},
-            //     function (data, status){
-            //         alert("hello world");
-            //     }
-            // );
-    </script>
-
+    
 
         
     </head>
@@ -73,8 +61,11 @@ require('../controllers/DB-connection.php');
                     // Attempt select query execution
                     $id=$_SESSION["user_id"];
                     $sql = "SELECT * FROM `events` WHERE users_id='$id'";
-                    if ($result = mysqli_query($conn, $sql)) {
-                        if (mysqli_num_rows($result) > 0) {
+                    if ($result = mysqli_query($conn, $sql)) 
+                    {
+                        if (mysqli_num_rows($result) > 0) 
+                        {
+                            
                             echo '<table class="table table-bordered table-striped">';
                             echo '<thead>';
                             echo '<tr>';
@@ -91,9 +82,12 @@ require('../controllers/DB-connection.php');
                             echo '</tr>';
                             echo '</thead>';
                             echo '<tbody>';
-                            while ($row = mysqli_fetch_array($result)) {
+                            while ($row = mysqli_fetch_assoc($result)) 
+                            {
+
+
                                 echo '<tr>';
-                                echo '<td>' . $row['creation_date'] . '</td>';
+                                echo '<td>' . $row['event_id'] . '</td>';
                                 echo '<td>' . $row['title'] . '</td>';
                                 echo '<td>' . $row['colours'] . '</td>';
                                 echo '<td>' . $row['start_date'] . '</td>';
@@ -103,82 +97,89 @@ require('../controllers/DB-connection.php');
 
                                 echo '<td>';
 
-                                echo '<a href="update.php?event_id=' .
+                                 echo '<a href="update.php?event_id=' .
                                     $row['event_id'] .
-                                    '" class="mr-3" title="Update Record" data-toggle="tooltip"data-bs-toggle="modal" data-bs-target="#updateModal"><span class="fa fa-pencil"></span></a>';
+                                    '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                 echo '<a href="delete.php?event_id=' .
                                     $row['event_id'] .
                                     '" class="mr-3" title="Delete Record" data-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#delete" ><span class="fa fa-trash"></span></a>';
+                                    
                                 echo '<a href="event_details.php?event_id=' .
                                     $row['event_id'] .
-                                    '" >Details</a>';
+                                    '" >Task</a>';
                                 echo '</td>';
                                 echo '</tr>';
-                                echo '
-                                      <!-- update Modal -->
-                                      <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                              What type of changes would you like to make ?
-                                            </div>
-                                            <div class="modal-footer">
-
-                                              
-                                              <a href="update.php?event_id=' .$row['event_id'] . '" class="btn btn-primary">update event details</a>
-                                              <a href="location_form.php?event_id=' .$row['event_id'] . '" class="btn btn-primary">Add location</a>
-                                              <a href="guest_form.php?event_id=' .$row['event_id'] . '" class="btn btn-primary">Add guest list</a>
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>';
+                                echo '<!-- Modal -->
+                                            <div id="delete" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <form action="" method="post">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Delete Record</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5>Are you sure you want to delete the event '.$row['event_id'].'?</h5>
+                                                            <input type="hidden" id="event_id" value= "'.$row['event_id'].'">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <input type="button" value="Yes" name="yes" onclick="validate('.$row['event_id'].')" class="btn btn-danger"> 
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                        </div>
+                                                                    
+                                                    </div>
+                                                            
+                                                </div>
+                                            </div>   ';
+                                
                             }
                             echo '</tbody>';
                             echo '</table>';
+
                             // Free result set
                             mysqli_free_result($result);
-                        } else {
+                        } else 
+                        {
                             echo '<div class="alert alert-danger"><em>No Event were found.</em></div>';
-                        }
+                            }
                     } else {
                         echo 'Oops! Something went wrong. Please try again later.';
                     }
 
                     // Close connection
                     mysqli_close($conn);
+
                     ?>
                 </div>
-                
-
-    <!-- Modal -->
-    <div id="delete" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']).'?event_id='.$_GET['event_id']; ?>" method="post">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Record</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5>Are you sure you want to delete this this event?</h5>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" value="Yes" name="yes" class="btn btn-danger"> 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                </div>
-                            
-            </div>
-                    
-        </div>
-    </div>        
-    
+                <div style="height: 150px;"></div>
 
         <?php require 'utils/footer.php'; ?><!--footer content. file found in utils folder-->
         
+
+            <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+        <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+
+        const validate =(id) =>
+        {
+            $.post(
+
+                'delete.php',
+                {
+                    event_id : id,
+                    submit:'yes'
+                },
+                function (data, status){
+                    
+                    location.reload();
+                }
+            );
+        }
+    </script>
+
     </body>
 </html>
